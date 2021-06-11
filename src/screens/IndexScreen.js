@@ -29,7 +29,7 @@ const IndexScreen = ({navigation}) =>{
 IndexScreen.navigationOptions = ({navigation}) => {
     return {
         headerRight: ()=> <TouchableOpacity onPress = {() => navigation.navigate('Create')}>
-                <AntDesign name="pluscircleo" size={30} color="black" />
+                <AntDesign name="pluscircleo" size={30} color = "black" style={{marginRight:5,marginTop:5}}/>
             </TouchableOpacity>
         
     }
