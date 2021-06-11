@@ -5,10 +5,9 @@ import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 
 const IndexScreen = ({navigation}) =>{
-    const {state,addBlogPost, deleteBlogPost} = useContext(Context) //data ve addBlogPost isimleri ayni olmali gonderilen ile 
+    const {state, deleteBlogPost} = useContext(Context) //data ve addBlogPost isimleri ayni olmali gonderilen ile 
     
     return <View>
-            <Button title='Add Post' onPress={addBlogPost}/>
             <FlatList
                 data={state}
                 keyExtractor = { (blogPost) => blogPost.title}
@@ -29,8 +28,8 @@ const IndexScreen = ({navigation}) =>{
 
 IndexScreen.navigationOptions = ({navigation}) => {
     return {
-        headerRight: <TouchableOpacity onPress = {() => navigation.navigate('Create')}>
-                <AntDesign name="pluscircleo" size={24} color="black" />
+        headerRight: ()=> <TouchableOpacity onPress = {() => navigation.navigate('Create')}>
+                <AntDesign name="pluscircleo" size={30} color="black" />
             </TouchableOpacity>
         
     }
