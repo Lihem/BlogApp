@@ -12,8 +12,9 @@ const blogReducer = (state, action) => {
 }
 
 const addBlogPost = (dispatch) => {
-    return (title, content) => {
+    return (title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
         dispatch({type: 'add_blogpost', payload: {title: title, content: content}})
+        callback()
     }
 }
 const deleteBlogPost = (dispatch) => {
