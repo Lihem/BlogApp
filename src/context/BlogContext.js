@@ -9,7 +9,7 @@ const blogReducer = (state, action) => {
         case 'edit_blogpost':
             return state.map((blogPost) => {
                 return blogPost.id === action.payload.id
-                    ? {id: action.payload.id , title: action.payload.title, content: action.payload.content}
+                    ? action.payload
                     : blogPost
             })
         default: 
@@ -20,7 +20,9 @@ const blogReducer = (state, action) => {
 const addBlogPost = (dispatch) => {
     return (title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
         dispatch({type: 'add_blogpost', payload: {title: title, content: content}})
-        callback()
+        if(callback){
+            callback()
+        }
     }
 }
 const deleteBlogPost = (dispatch) => {
@@ -32,7 +34,9 @@ const deleteBlogPost = (dispatch) => {
 const editBlogPost = (dispatch) => {
     return (id, title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
         dispatch({type: 'edit_blogpost', payload: {id: id, title: title, content: content}})
-        callback()
+        if(callback){
+            callback() 
+        }
     }
 }
 

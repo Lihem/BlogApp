@@ -11,7 +11,7 @@ const EditScreen= ({navigation}) => {
     const blogPost = state.find((blogPost) => blogPost.id === id)
     
     return <BlogPostForm initialValues={{title: blogPost.title, content: blogPost.content}} onSubmit= {(title, content) => {
-            editBlogPost(id, title, content, () => navigation.navigate('Index'))
+            editBlogPost(id, title, content, () => navigation.pop()) //bi onceki ekrana donme
         }}
     />
 }
