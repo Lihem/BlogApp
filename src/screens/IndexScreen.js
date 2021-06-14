@@ -1,12 +1,24 @@
-import React, {useContext} from 'react'
-import {View, Text, StyleSheet, FlatList, Button, TouchableOpacity} from 'react-native'
+import React, {useContext, useEffect} from 'react'
+import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
 import {Context} from '../context/BlogContext' // 2 farkli yerden Context gelirse {Context as BlogContext} seklinde yeniden isimlendirebilirdik
 import { Feather } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 
 const IndexScreen = ({navigation}) =>{
-    const {state, deleteBlogPost} = useContext(Context) //data ve addBlogPost isimleri ayni olmali gonderilen ile 
+    const {state, deleteBlogPost, getBlogPosts} = useContext(Context) //data ve addBlogPost isimleri ayni olmali gonderilen ile 
     
+    useEffect(() => {
+        getBlogPosts()
+
+        const listener = navigation.addListener('didFocus', () => { // bu ekrana her donuldugunde icerdeki kod calisiyor
+            getBlogPosts()
+        })
+
+        return () => { //indexScreen birdaha hic ulasilamiycak hale gelirse listeneri arka planda kapatmak icin gerekli
+            listener.remove()
+        }
+    }, [])
+
     return <View>
             <FlatList
                 data={state}

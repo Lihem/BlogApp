@@ -5,8 +5,6 @@ const blogReducer = (state, action) => {
     switch (action.type){
         case 'get_blogposts':
             return action.payload
-        case 'add_blogpost':
-            return [...state, {id: Math.floor(Math.random() * 99999), title: action.payload.title, content: action.payload.content}]
         case 'delete_blogpost':
             return state.filter((blogPost) => blogPost.id !== action.payload)
         case 'edit_blogpost':
@@ -24,13 +22,15 @@ const getBlogPosts = dispatch => {
     return async () => {
         const response = await jsonServer.get('/blogposts')
 
-        dispatch({typeL: 'get_blogposts', payload: response.data})
+        dispatch({type: 'get_blogposts', payload: response.data})
     }
 }
 
 const addBlogPost = (dispatch) => {
-    return (title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
-        dispatch({type: 'add_blogpost', payload: {title: title, content: content}})
+    return async (title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
+        await jsonServer.post('/blogposts', {title: title, content: content})
+
+        //dispatch({type: 'add_blogpost', payload: {title: title, content: content}})  buna gerek kalmadi cunki indexScreende getBlogPosts cagiriliyor ayni kod
         if(callback){
             callback()
         }
