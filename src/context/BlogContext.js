@@ -37,13 +37,16 @@ const addBlogPost = (dispatch) => {
     }
 }
 const deleteBlogPost = (dispatch) => {
-    return (id) => {
-        dispatch({type: 'delete_blogpost', payload: id})
-    }
+    return async (id) => {
+        await jsonServer.delete(`/blogposts/${id}`) //serverdan siliyor
+        dispatch({type: 'delete_blogpost', payload: id}) //localden siliyor
+    }                                                   // bunu sadece serverdan silip sonra listeyi yenileyebilirdik
 }
 
 const editBlogPost = (dispatch) => {
-    return (id, title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
+    return async (id, title, content, callback) => { // bu fonksiyonu async yapip api istegini trycatch icine alirdik olsaydi
+        await jsonServer.put(`/blogposts/${id}`,{title, content})
+        
         dispatch({type: 'edit_blogpost', payload: {id: id, title: title, content: content}})
         if(callback){
             callback() 
